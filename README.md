@@ -91,18 +91,18 @@ The application will provide a local URL (typically `http://localhost:7860`). Op
 ## Future Improvements & Advanced RoadMap
 
 1. **Advanced Retrieval Techniques**
-**Cross-Encoder Re-Ranking**: Currently, the system relies strictly on `cosine similarity` (Bi-Encoder) to fetch the top k documents. Adding a Cross-Encoder (like `cross-encoder/ms-marco-MiniLM-L-6-v2`) as a second-stage re-ranker would drastically improve context precision by actively scoring the query against the retrieved chunks.
+- **Cross-Encoder Re-Ranking**: Currently, the system relies strictly on `cosine similarity` (Bi-Encoder) to fetch the top k documents. Adding a Cross-Encoder (like `cross-encoder/ms-marco-MiniLM-L-6-v2`) as a second-stage re-ranker would drastically improve context precision by actively scoring the query against the retrieved chunks.
 
-**Parent-Child Chunking (Auto-merging Retriever)**: Instead of feeding the LLM the exact chunk that was matched, the system could store smaller chunks for high-accuracy search, but retrieve the larger "Parent" section surrounding it to provide the LLM with broader context.
+- **Parent-Child Chunking (Auto-merging Retriever)**: Instead of feeding the LLM the exact chunk that was matched, the system could store smaller chunks for high-accuracy search, but retrieve the larger "Parent" section surrounding it to provide the LLM with broader context.
 
 2. **Infrastructure & Scalability**
-**Dockerization**: Wrap the FastAPI backend, the Gradio UI, and a dedicated Redis container into a single docker-compose.yml file for unified, one-click deployments.
+- **Dockerization**: Wrap the FastAPI backend, the Gradio UI, and a dedicated Redis container into a single docker-compose.yml file for unified, one-click deployments.
 
-**Migrate Cache to Redis**: While the current SQLite implementation is decent enough for local runs, swapping back to an in-memory Redis cluster would be necessary for handling high-concurrency requests in a cloud environment.
+- **Migrate Cache to Redis**: While the current SQLite implementation is decent enough for local runs, swapping back to an in-memory Redis cluster would be necessary for handling high-concurrency requests in a cloud environment.
 
-**vLLM Integration**: If deployed to cloud GPUs, replacing Ollama with a high-throughput inference server like vLLM would drastically improve token generation speed and concurrent request batching.
+- **vLLM Integration**: If deployed to cloud GPUs, replacing Ollama with a high-throughput inference server like vLLM would drastically improve token generation speed and concurrent request batching.
 
 3. **Evaluation & Guardrails**
-**RAGAS Implementation**: Integrate the RAGAS (RAG Assessment) framework to quantitatively evaluate the pipeline's performance using metrics like Faithfulness (preventing hallucinations) and Answer Relevance.
+- **RAGAS Implementation**: Integrate the RAGAS (RAG Assessment) framework to quantitatively evaluate the pipeline's performance using metrics like Faithfulness (preventing hallucinations) and Answer Relevance.
 
-**NeMo Guardrails**: Add an input/output safety layer to ensure the bot strictly refuses to answer non-HR or non-policy related questions (e.g., stopping employees from asking the bot to write code or generate creative writing).
+- **NeMo Guardrails**: Add an input/output safety layer to ensure the bot strictly refuses to answer non-HR or non-policy related questions (e.g., stopping employees from asking the bot to write code or generate creative writing).
