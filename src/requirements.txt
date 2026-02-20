@@ -1,0 +1,203 @@
+accelerate==1.12.0
+aiofiles==24.1.0
+annotated-doc==0.0.4
+annotated-types==0.7.0
+antlr4-python3-runtime==4.9.3
+anyio==4.12.1
+asttokens @ file:///home/conda/feedstock_root/build_artifacts/asttokens_1763409923949/work
+async-timeout==5.0.1
+attrs==25.4.0
+backoff==2.2.1
+bcrypt==5.0.0
+beautifulsoup4==4.14.3
+brotli==1.2.0
+build==1.4.0
+certifi==2026.1.4
+charset-normalizer==3.4.4
+chromadb==1.5.1
+click==8.3.1
+colorama @ file:///home/conda/feedstock_root/build_artifacts/colorama_1733218098505/work
+coloredlogs==15.0.1
+colorlog==6.10.1
+comm @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_comm_1753453984/work
+debugpy @ file:///D:/bld/bld/rattler-build_debugpy_1765840830/work
+decorator @ file:///home/conda/feedstock_root/build_artifacts/decorator_1740384970518/work
+defusedxml==0.7.1
+dill==0.4.1
+distro==1.9.0
+docling==2.74.0
+docling-core==2.65.1
+docling-ibm-models==3.11.0
+docling-parse==5.3.3
+durationpy==0.10
+et_xmlfile==2.0.0
+exceptiongroup @ file:///home/conda/feedstock_root/build_artifacts/exceptiongroup_1763918002538/work
+executing @ file:///home/conda/feedstock_root/build_artifacts/executing_1756729339227/work
+Faker==40.4.0
+fastapi==0.129.0
+ffmpy==1.0.0
+filelock==3.24.3
+filetype==1.2.0
+flatbuffers==25.12.19
+fsspec==2026.2.0
+googleapis-common-protos==1.72.0
+gradio==6.6.0
+gradio_client==2.1.0
+groovy==0.1.2
+grpcio==1.78.1
+h11==0.16.0
+hf-xet==1.2.0
+httpcore==1.0.9
+httptools==0.7.1
+httpx==0.28.1
+huggingface_hub==0.36.2
+humanfriendly==10.0
+idna==3.11
+importlib_metadata==8.7.1
+importlib_resources==6.5.2
+ipykernel @ file:///D:/bld/bld/rattler-build_ipykernel_1761567966/work
+ipython @ file:///D:/bld/bld/rattler-build_ipython_1748711254/work
+jedi @ file:///home/conda/feedstock_root/build_artifacts/jedi_1733300866624/work
+Jinja2==3.1.6
+jiter==0.12.0
+joblib==1.5.3
+jsonlines==4.0.0
+jsonpatch==1.33
+jsonpointer==3.0.0
+jsonref==1.1.0
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+jupyter_client @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_jupyter_client_1767954655/work
+jupyter_core @ file:///D:/bld/bld/rattler-build_jupyter_core_1760643889/work
+kubernetes==35.0.0
+langchain==1.2.10
+langchain-core==1.2.14
+langchain-openai==1.1.7
+langchain-text-splitters==1.1.1
+langgraph==1.0.9
+langgraph-checkpoint==4.0.0
+langgraph-prebuilt==1.0.8
+langgraph-sdk==0.3.3
+langsmith==0.6.4
+latex2mathml==3.78.1
+lxml==6.0.2
+markdown-it-py==4.0.0
+marko==2.2.2
+MarkupSafe==3.0.3
+matplotlib-inline @ file:///home/conda/feedstock_root/build_artifacts/matplotlib-inline_1761214490209/work
+mdurl==0.1.2
+mmh3==5.2.0
+mpire==2.10.2
+mpmath==1.3.0
+multiprocess==0.70.19
+nest_asyncio @ file:///home/conda/feedstock_root/build_artifacts/nest-asyncio_1733325553580/work
+networkx==3.4.2
+numpy==2.2.6
+oauthlib==3.3.1
+ollama==0.6.1
+omegaconf==2.3.0
+onnxruntime==1.23.2
+openai==2.15.0
+opencv-python==4.13.0.92
+openpyxl==3.1.5
+opentelemetry-api==1.39.1
+opentelemetry-exporter-otlp-proto-common==1.39.1
+opentelemetry-exporter-otlp-proto-grpc==1.39.1
+opentelemetry-proto==1.39.1
+opentelemetry-sdk==1.39.1
+opentelemetry-semantic-conventions==0.60b1
+orjson==3.11.5
+ormsgpack==1.12.2
+overrides==7.7.0
+packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1745345660/work
+pandas==2.3.3
+parso @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_parso_1755974222/work
+pickleshare @ file:///home/conda/feedstock_root/build_artifacts/pickleshare_1733327343728/work
+pillow==12.1.1
+platformdirs @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_platformdirs_1764950726/work
+pluggy==1.6.0
+polyfactory==3.2.0
+posthog==5.4.0
+prompt_toolkit @ file:///home/conda/feedstock_root/build_artifacts/prompt-toolkit_1756321756983/work
+protobuf==6.33.5
+psutil @ file:///D:/bld/bld/rattler-build_psutil_1767012427/work
+pure_eval @ file:///home/conda/feedstock_root/build_artifacts/pure_eval_1733569405015/work
+pybase64==1.4.3
+pyclipper==1.4.0
+pydantic==2.12.5
+pydantic-settings==2.13.1
+pydantic_core==2.41.5
+pydub==0.25.1
+Pygments @ file:///home/conda/feedstock_root/build_artifacts/pygments_1750615794071/work
+pylatexenc==2.10
+pypdfium2==5.5.0
+PyPika==0.51.1
+pyproject_hooks==1.2.0
+pyreadline3==3.5.4
+python-dateutil @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_python-dateutil_1751104122/work
+python-docx==1.2.0
+python-dotenv==1.2.1
+python-multipart==0.0.22
+python-pptx==1.0.2
+pytz==2025.2
+pywin32 @ file:///D:/bld/bld/rattler-build_pywin32_1756487147/work
+PyYAML==6.0.3
+pyzmq @ file:///D:/bld/bld/rattler-build_pyzmq_1757387021/work
+rapidocr==3.6.0
+redis==7.2.0
+referencing==0.37.0
+regex==2026.1.15
+requests==2.32.5
+requests-oauthlib==2.0.0
+requests-toolbelt==1.0.0
+rich==14.3.3
+rpds-py==0.30.0
+rtree==1.4.1
+safehttpx==0.1.7
+safetensors==0.7.0
+scikit-learn==1.7.2
+scipy==1.15.3
+semantic-version==2.10.0
+semchunk==2.2.2
+sentence-transformers==5.2.3
+shapely==2.1.2
+shellingham==1.5.4
+six @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_six_1753199211/work
+sniffio==1.3.1
+soupsieve==2.8.3
+stack_data @ file:///home/conda/feedstock_root/build_artifacts/stack_data_1733569443808/work
+starlette==0.52.1
+sympy==1.14.0
+tabulate==0.9.0
+tenacity==9.1.2
+threadpoolctl==3.6.0
+tiktoken==0.12.0
+tokenizers==0.22.2
+tomli==2.4.0
+tomlkit==0.13.3
+torch==2.10.0
+torchvision==0.25.0
+tornado @ file:///D:/bld/tornado_1765836387919/work
+tqdm==4.67.1
+traitlets @ file:///home/conda/feedstock_root/build_artifacts/traitlets_1733367359838/work
+transformers==4.57.6
+tree-sitter==0.25.2
+tree-sitter-c==0.24.1
+tree-sitter-javascript==0.25.0
+tree-sitter-python==0.25.0
+tree-sitter-typescript==0.23.2
+typer==0.21.2
+typing-inspection==0.4.2
+typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_typing_extensions_1756220668/work
+tzdata==2025.3
+urllib3==2.6.3
+uuid_utils==0.13.0
+uvicorn==0.41.0
+watchfiles==1.1.1
+wcwidth @ file:///home/conda/feedstock_root/build_artifacts/wcwidth_1758622279606/work
+websocket-client==1.9.0
+websockets==16.0
+xlsxwriter==3.2.9
+xxhash==3.6.0
+zipp==3.23.0
+zstandard==0.25.0
