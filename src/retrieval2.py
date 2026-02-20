@@ -8,7 +8,7 @@ from sentence_transformers import SentenceTransformer
 
 class PolicyRetriever:
     def __init__(self, db_dir: str = "data/chromadb_store", cache_db_path: str = "data/cache.db"):
-        # Initializing Vector Search Components
+        # 1. Initializing Vector Search Components
         print("Loading embedding model for retrieval...")
         self.embedding_model = SentenceTransformer("BAAI/bge-small-en-v1.5")
         
@@ -16,7 +16,7 @@ class PolicyRetriever:
         self.chroma_client = chromadb.PersistentClient(path=db_dir)
         self.collection = self.chroma_client.get_collection("corporate_policies")
         
-        # Initializing the SQLite Caching Layer
+        # 2. Initializing the SQLite Caching Layer
         self.cache_db_path = cache_db_path
         self._init_sqlite_cache()
 
