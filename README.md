@@ -30,7 +30,8 @@ policy_rag/
 │   └── ui.py                # Gradio chat interface
 ├── ui.png                   # Screenshot of the interface
 ├── requirements.txt         # Python dependencies
-└── run_ingestion.py         # Execution script to build the vector database
+├── run_ingestion.py         # Execution script to build the vector database
+└── sample.ipynb             # Sample jupyter notebook for testing
 ```
 
 ## Installation & Setup
@@ -99,8 +100,6 @@ The application will provide a local URL (typically `http://localhost:7860`). Op
 - **Dockerization**: Wrap the FastAPI backend, the Gradio UI, and a dedicated Redis container into a single docker-compose.yml file for unified, one-click deployments.
 
 - **Migrate Cache to Redis**: While the current SQLite implementation is decent enough for local runs, swapping back to an in-memory Redis cluster would be necessary for handling high-concurrency requests in a cloud environment.
-
-- **vLLM Integration**: If deployed to cloud GPUs, replacing Ollama with a high-throughput inference server like vLLM would drastically improve token generation speed and concurrent request batching.
 
 3. **Evaluation & Guardrails**
 - **RAGAS Implementation**: Integrate the RAGAS (RAG Assessment) framework to quantitatively evaluate the pipeline's performance using metrics like Faithfulness (preventing hallucinations) and Answer Relevance.
