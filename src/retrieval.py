@@ -84,29 +84,20 @@ class PolicyRetriever:
             """, (cache_key, response, expiry_time))
             conn.commit()
 
-    # def retrieve_context(self, query: str, top_k: int = 3) -> str:
-    #     """Embeds the query and fetches the most relevant document chunks."""
-    #     query_embedding = self.embedding_model.encode(query).tolist()
-        
-    #     results = self.collection.query(
-    #         query_embeddings=[query_embedding],
-    #         n_results=top_k
-    #     )
-        
-    #     if not results['documents'][0]:
-    #         return ""
-            
-    #     # Combine the chunks into a single string to feed to the LLM
-    #     return "\n\n---\n\n".join(results['documents'][0])
 
-    def retrieve_context(self, query: str, initial_k: int = 15, final_k: int = 3) -> str:
+    # def retrieve_context(self, query: str, initial_k: int = 15, final_k: int = 3) -> str:
+    def retrieve_context(self, query: str, initial_k: int = 15, final_k: int = 3):
         """
         Two-Stage Retrieval Pipeline:
         1. Embeds the query and fetches the top 'initial_k' chunks using the fast Bi-Encoder.
         2. Passes the chunks to a Cross-Encoder to calculate an exact relevance score.
         3. Returns the top 'final_k' re-ranked chunks.
         """
+        total_start = time.time()
+
         # Stage 1: Fast Retrieval (Bi-Encoder)
+        bi_start = time.time()
+
         query_embedding = self.embedding_model.encode(
             query,
             normalize_embeddings=True # added normalization
@@ -119,16 +110,26 @@ class PolicyRetriever:
         
         retrieved_docs = results['documents'][0]
         
+        bi_latency_ms = (time.time() - bi_start) * 1000
+
+        retrieved_docs = results['documents'][0]
         if not retrieved_docs:
-            return ""
+            return "",{
+            "bi_latency_ms": bi_latency_ms,
+            "rerank_latency_ms": 0,
+            "total_latency_ms": bi_latency_ms,
+            "similarity_scores": []
+        }
             
         # Stage 2: Re-Ranking (Cross-Encoder)
+        rerank_start = time.time()
         # The Cross-Encoder requires pairs in the format: [[query, document_1], [query, document_2], ...]
         cross_encoder_inputs = [[query, doc] for doc in retrieved_docs]
         
         # Predict generates a highly accurate relevance score for each pair
         scores = self.cross_encoder.predict(cross_encoder_inputs)
         
+        rerank_latency_ms = (time.time() - rerank_start) * 1000
         # Combine the scores with their respective documents
         scored_docs = list(zip(scores, retrieved_docs))
         
@@ -137,6 +138,17 @@ class PolicyRetriever:
         
         # Extract the text of the top 'final_k' documents
         best_docs = [doc for score, doc in scored_docs[:final_k]]
+
+        total_latency_ms = (time.time() - total_start) * 1000
             
         # Combine the strictly filtered chunks into a single string for the LLM prompt
-        return "\n\n---\n\n".join(best_docs)
+        # return "\n\n---\n\n".join(best_docs)
+        return (
+        "\n\n---\n\n".join(best_docs),
+            {
+                "bi_latency_ms": bi_latency_ms,
+                "rerank_latency_ms": rerank_latency_ms,
+                "total_latency_ms": total_latency_ms,
+                "similarity_scores": list(scores)
+            }
+        )

@@ -21,10 +21,13 @@ policy_rag/
 ├── data/
 │   ├── raw_pdfs/            # Folder to place the policy PDFs
 │   ├── chromadb_store/      # Auto-generated vector database
+│   ├── logs/                # where the logs are stored
 │   └── cache.db             # Auto-generated SQLite cache file
 ├── src/
 │   ├── __init__.py
 │   ├── ingestion.py         # Docling parsing, semantic chunking, embedding
+│   ├── logging_config.py    # logging config
+│   ├── metrics.py           # to track latency and similarity metrics
 │   ├── retrieval.py         # ChromaDB search and SQLite caching logic
 │   ├── api.py               # FastAPI routes and async Ollama streaming
 │   └── ui.py                # Gradio chat interface

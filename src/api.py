@@ -1,10 +1,17 @@
 import os
 import json
 import httpx
+import time
+from src.logging_config import setup_logger
+from src.metrics import MetricsTracker
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from src.retrieval import PolicyRetriever
+
+logger = setup_logger()
+metrics = MetricsTracker()
+logger.info("logger_initialized", extra={"extra_data": {"event": "startup"}}) # temp
 
 app = FastAPI(title="Corporate Policy RAG API")
 retriever = PolicyRetriever()
@@ -80,11 +87,45 @@ async def ask_question(request: AskRequest):
         return StreamingResponse(stream_cache(), media_type="text/event-stream")
     
     # Retrieval: Get semantic context from ChromaDB
-    context = retriever.retrieve_context(query)
+    # context = retriever.retrieve_context(query)
+    context, retrieval_metrics = retriever.retrieve_context(query)
     if not context:
         async def no_context():
             yield "I do not have any relevant policy documents to answer that question."
         return StreamingResponse(no_context(), media_type="text/event-stream")
+    
+    # logging cached answers
+    if cached_answer:
+        metrics.record_cache_hit()
+        logger.info(
+            "cache_hit",
+            extra={
+                "extra_data": {
+                    "event": "cache_hit",
+                    "hit_ratio": metrics.cache_hit_ratio()
+                }
+            }
+        )
+    else:
+        metrics.record_cache_miss()
+
+    # logging retrieval latency and similarity scores
+    metrics.record_retrieval_latency(retrieval_metrics["total_latency_ms"])
+    metrics.record_similarity_scores(retrieval_metrics["similarity_scores"])
+
+    logger.info(
+        "retrieval_complete",
+        extra={
+            "extra_data": {
+                "event": "retrieval_complete",
+                "bi_latency_ms": retrieval_metrics["bi_latency_ms"],
+                "rerank_latency_ms": retrieval_metrics["rerank_latency_ms"],
+                "total_latency_ms": retrieval_metrics["total_latency_ms"],
+                "similarity_distribution": metrics.similarity_distribution()
+            }
+        }
+    )
         
     # Generation: Stream the LLM reasoning
     return StreamingResponse(stream_ollama_response(query, context), media_type="text/event-stream")
+
