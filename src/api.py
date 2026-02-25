@@ -35,7 +35,7 @@ async def stream_ollama_response(query: str, context: str):
     """
     
     payload = {
-        "model": "phi3.5:latest", # Moved this to the top to switch out faster
+        "model": "OLLAMA_MODEL", 
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": query}

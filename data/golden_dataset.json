@@ -1,0 +1,82 @@
+[
+    {
+        "question": "What is the time limit for a traveler to return excess advance amounts after a trip?",
+        "ground_truth": "Faculty and staff must return any advance amounts in excess of substantiated expenses within fifteen (15) days after completion of the trip."
+    },
+    {
+        "question": "Can I use a travel cash advance to pay for my hotel room and flight?",
+        "ground_truth": "No, the travel advance cannot be issued for airfare, lodging, conference fees, or any other substantial fees that can be prepaid or charged to a University Purchasing Card."
+    },
+    {
+        "question": "Does the University cover the cost of first-class or business-class flights?",
+        "ground_truth": "No, the University of Mount Union covers the cost of coach class tickets and requires travelers to book the lowest priced nonstop coach class airfare available."
+    },
+    {
+        "question": "Are we allowed to rent luxury cars or 15-passenger vans for University business?",
+        "ground_truth": "No luxury cars, sports cars, or 15-passenger vans are permitted as rentals."
+    },
+    {
+        "question": "Should I purchase collision damage insurance (CDI) when renting a vehicle in the United States?",
+        "ground_truth": "No, collision damage insurance (CDI), personal accident insurance (PAI), and liability insurance supplements should always be declined when traveling within the United States, and are not reimbursable if elected."
+    },
+    {
+        "question": "How will I be reimbursed if I drive my personal vehicle instead of flying?",
+        "ground_truth": "The use of personal vehicles is reimbursable based on a mileage rate published by the Business Office; gasoline purchased for a personal vehicle is not reimbursable."
+    },
+    {
+        "question": "Is there a distance minimum to qualify for lodging reimbursement?",
+        "ground_truth": "Yes, no lodging reimbursement is allowed for travel 75 miles or less (one way) from the traveler's place of work for less than 24 hours."
+    },
+    {
+        "question": "What is the maximum daily reimbursement limit for meals?",
+        "ground_truth": "Actual meal expenses should not exceed $55 per day, though major cities like New York and Los Angeles are paid at a rate of $65 per day."
+    },
+    {
+        "question": "What is the policy regarding alcohol reimbursement during business meals?",
+        "ground_truth": "Alcoholic beverages are not reimbursable unless approved in advance for business entertainment purposes, and in no case will more than 20% of the total billable meal expenses be reimbursed for alcohol."
+    },
+    {
+        "question": "Can faculty members travel to countries with a Level 4 travel advisory?",
+        "ground_truth": "No, faculty, staff, or students are not permitted to travel to countries with an active embargo or a level 3 or level 4 travel advisory in place."
+    },
+    {
+        "question": "Will the University pay for my spouse's travel if they help me by typing notes during the trip?",
+        "ground_truth": "No, performing menial tasks such as typing notes does not make it a bona fide business expense; the spouse must perform substantive business-related functions essential to the employee's purpose."
+    },
+    {
+        "question": "How long do I have to submit my travel expenses before they are treated as taxable income?",
+        "ground_truth": "Faculty and staff must reconcile University travel expenses within 60 days of completion of travel, otherwise the expenses will be considered taxable income to the employee."
+    },
+    {
+        "question": "Are traffic fines and parking tickets reimbursable if I am driving a University fleet vehicle?",
+        "ground_truth": "No, drivers are responsible for all moving violations and parking tickets while driving a University vehicle, and these will not be reimbursed."
+    },
+    {
+        "question": "Are gifts given to employees considered taxable compensation?",
+        "ground_truth": "Yes, gifts purchased with university funds having a retail value of twenty dollars or more are considered compensation and will be subject to federal, state, and employment tax withholding."
+    },
+    {
+        "question": "What is the recommended student to faculty ratio for overnight student organization travel?",
+        "ground_truth": "It is recommended to maintain a minimum of one student/faculty staff advisor for every twelve (12) students in attendance (12:1 ratio)."
+    },
+    {
+        "question": "Can a student leader serve as the Travel Supervisor for an overnight trip?",
+        "ground_truth": "No, student leaders may only serve as the Travel Supervisor for same day or one day travel; travel supervisors for overnight trips are to be faculty, staff, or administrators employed by the University."
+    },
+    {
+        "question": "If students are of legal drinking age, can a University representative consume alcohol with them on a student organization trip?",
+        "ground_truth": "No, University representatives may not consume alcoholic beverages in the presence of any student, regardless of the age of the student."
+    },
+    {
+        "question": "Who must a trip leader contact in the event of an accident or emergency during a trip?",
+        "ground_truth": "After attending to the injured, the trip leader must immediately contact Mount Union Security and the Office of Student Affairs."
+    },
+    {
+        "question": "Can student-athletes drive other student-athletes to away games in their personal cars?",
+        "ground_truth": "No, student-athletes are not to transport other student-athletes in private vehicles once they have reported for an official University activity/function."
+    },
+    {
+        "question": "Does the athletic department require a separate hotel room for charter bus drivers on overnight trips?",
+        "ground_truth": "Yes, if there is overnight travel, a separate single room must be reserved for the bus driver."
+    }
+]
