@@ -9,8 +9,9 @@ from src.retrieval import PolicyRetriever
 app = FastAPI(title="Corporate Policy RAG API")
 retriever = PolicyRetriever()
 
-# Ollama endpoint
+# Ollama configuration
 OLLAMA_URL = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "phi3.5:latest") # Updated to Phi-3.5
 
 class AskRequest(BaseModel):
     query: str
@@ -27,7 +28,7 @@ async def stream_ollama_response(query: str, context: str):
     """
     
     payload = {
-        "model": "llama3.2:1b",
+        # "model": "llama3.2:1b", # Moved this to the top to switch out faster
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": query}
@@ -40,7 +41,9 @@ async def stream_ollama_response(query: str, context: str):
     # Use httpx for asynchronous HTTP requests
     async with httpx.AsyncClient() as client:
         try:
-            async with client.stream("POST", f"{OLLAMA_URL}/api/chat", json=payload, timeout=60.0) as response:
+            # Note: HIgher timeout as this is running locally 
+            # might take a few extra seconds to load into RAM on the first query
+            async with client.stream("POST", f"{OLLAMA_URL}/api/chat", json=payload, timeout=90.0) as response:
                 response.raise_for_status()
                 
                 # Yield tokens as they arrive over the network
