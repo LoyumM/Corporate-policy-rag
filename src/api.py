@@ -11,7 +11,7 @@ retriever = PolicyRetriever()
 
 # Ollama configuration
 OLLAMA_URL = os.getenv("OLLAMA_HOST", "http://localhost:11434")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "phi3.5:latest") # Updated to Phi-3.5
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "phi3.5:latest") 
 
 class AskRequest(BaseModel):
     query: str
@@ -28,7 +28,7 @@ async def stream_ollama_response(query: str, context: str):
     """
     
     payload = {
-        # "model": "llama3.2:1b", # Moved this to the top to switch out faster
+        "model": "phi3.5:latest", # Moved this to the top to switch out faster
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": query}
@@ -38,15 +38,19 @@ async def stream_ollama_response(query: str, context: str):
     
     full_response = ""
     
-    # Use httpx for asynchronous HTTP requests
+# Use httpx for asynchronous HTTP requests
     async with httpx.AsyncClient() as client:
         try:
-            # Note: HIgher timeout as this is running locally 
-            # might take a few extra seconds to load into RAM on the first query
             async with client.stream("POST", f"{OLLAMA_URL}/api/chat", json=payload, timeout=90.0) as response:
-                response.raise_for_status()
                 
-                # Yield tokens as they arrive over the network
+                # Check for 400 Bad Request (or any error) BEFORE streaming
+                if response.status_code != 200:
+                    await response.aread() # Safely read the error while stream is open
+                    error_msg = response.text
+                    yield f"\n[Ollama Error {response.status_code}]: {error_msg}"
+                    return # Exit the generator immediately
+                
+                # If 200 OK, yield tokens as they arrive over the network
                 async for line in response.aiter_lines():
                     if line:
                         data = json.loads(line)
@@ -60,6 +64,8 @@ async def stream_ollama_response(query: str, context: str):
             
         except httpx.RequestError as e:
             yield f"\n[Error communicating with LLM: {str(e)}]"
+        except Exception as e:
+            yield f"\n[Unexpected Error]: {str(e)}"
 
 @app.post("/api/ask")
 async def ask_question(request: AskRequest):
