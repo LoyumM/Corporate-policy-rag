@@ -107,7 +107,10 @@ class PolicyRetriever:
         3. Returns the top 'final_k' re-ranked chunks.
         """
         # Stage 1: Fast Retrieval (Bi-Encoder)
-        query_embedding = self.embedding_model.encode(query).tolist()
+        query_embedding = self.embedding_model.encode(
+            query,
+            normalize_embeddings=True # added normalization
+            ).tolist()
         
         results = self.collection.query(
             query_embeddings=[query_embedding],

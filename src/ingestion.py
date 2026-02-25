@@ -90,7 +90,12 @@ class PolicyIngestionPipeline:
 
         # Generate Embeddings
         print(f"  -> Generating embeddings for {len(final_chunks)} chunks...")
-        embeddings = self.embedding_model.encode(final_chunks).tolist()
+        # embeddings = self.embedding_model.encode(final_chunks).tolist()
+        embeddings = self.embedding_model.encode(
+            final_chunks, 
+            batch_size=32, 
+            # show_progress_bar=True, 
+            normalize_embeddings=True).tolist() # added batching and normalization
 
         # Store in ChromaDB
         print("  -> Storing in ChromaDB...")
