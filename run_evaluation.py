@@ -4,14 +4,16 @@ import requests
 import pandas as pd
 from datasets import Dataset
 from ragas import evaluate
-from ragas.metrics.collections import (
-    faithfulness,
-    answer_correctness,
-    context_precision
+from ragas.metrics import (
+    ContextPrecision,
+    Faithfulness,
+    AnswerCorrectness
 )
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from dotenv import load_dotenv 
 from src.retrieval import PolicyRetriever
+from ragas.llms import LangchainLLMWrapper
+from ragas.embeddings import LangchainEmbeddingsWrapper
 
 
 load_dotenv()
@@ -20,8 +22,8 @@ if "OPENAI_API_KEY" not in os.environ:
     raise ValueError("Missing OPENAI_API_KEY. Please check your .env file.")
 
 # Configure Ragas
-judge_llm = ChatOpenAI(model="gpt-4o-mini")
-judge_embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+judge_llm = LangchainLLMWrapper(ChatOpenAI(model="gpt-4o-mini"))
+judge_embeddings = LangchainEmbeddingsWrapper(OpenAIEmbeddings(model="text-embedding-3-small"))
 
 OLLAMA_URL = "http://localhost:11434/api/chat"
 OLLAMA_MODEL = "phi3.5:latest"
@@ -65,6 +67,7 @@ def main():
     # Generating Traces (The local system takes the exam)
     print(f"Running evaluation on {len(golden_data)} questions. This will take a few minutes...")
     for idx, item in enumerate(golden_data):
+    # for idx, item in enumerate(golden_data[:3]): #trial
         question = item["question"]
         ground_truth = item["ground_truth"]
         
@@ -104,34 +107,18 @@ def main():
     # Run the LLM-as-a-Judge Evaluation
     print("\nTraces collected! Sending data to gpt-4o-mini for grading...")
 
-    # We must instantiate the metrics by adding parentheses ()
+    # Initialize the Classes and inject the OpenAI Judge directly into them
     metrics_list = [
-        context_precision(),
-        faithfulness(),
-        answer_correctness()
+        ContextPrecision(llm=judge_llm),
+        Faithfulness(llm=judge_llm),
+        AnswerCorrectness(llm=judge_llm, embeddings=judge_embeddings)
     ]
-
-    # We map the models to the specific initialized metrics
-    for metric in metrics_list:
-        metric.llm = judge_llm
-        if hasattr(metric, 'embeddings'):
-            metric.embeddings = judge_embeddings
 
     result = evaluate(
         dataset=dataset,
         metrics=metrics_list,
     )
     
-    # # We map the models to the specific metrics
-    # for metric in [faithfulness, answer_correctness, context_precision]:
-    #     metric.llm = judge_llm
-    #     if hasattr(metric, 'embeddings'):
-    #         metric.embeddings = judge_embeddings
-
-    # result = evaluate(
-    #     dataset=dataset,
-    #     metrics=[context_precision, faithfulness, answer_correctness],
-    # )
 
     # Save and Display Results
     print("\n=== EVALUATION COMPLETE ===")
