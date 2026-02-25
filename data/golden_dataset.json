@@ -1,7 +1,7 @@
 [
     {
         "question": "What is the time limit for a traveler to return excess advance amounts after a trip?",
-        "ground_truth": "Faculty and staff must return any advance amounts in excess of substantiated expenses within fifteen (15) days after completion of the trip."
+        "ground_truth": "Faculty and staff must return any advance amounts in excess of substantiated expenses within 120 days after completion of the trip. After this period, unsubstantiated expenses must be treated as nonaccountable plan compensation and subjected to withholding on W-2 form among other consequences."
     },
     {
         "question": "Can I use a travel cash advance to pay for my hotel room and flight?",
@@ -17,7 +17,7 @@
     },
     {
         "question": "Should I purchase collision damage insurance (CDI) when renting a vehicle in the United States?",
-        "ground_truth": "No, collision damage insurance (CDI), personal accident insurance (PAI), and liability insurance supplements should always be declined when traveling within the United States, and are not reimbursable if elected."
+        "ground_truth": "No, you should always decline collision damage insurance (CDI), personal accident insurance (PAI), and liability insurance supplements when traveling within the United States, and are not reimbursable if elected. The University's policy will cover rental car damage with an applicable deductible charged to the individual or department in such cases."
     },
     {
         "question": "How will I be reimbursed if I drive my personal vehicle instead of flying?",
@@ -77,6 +77,6 @@
     },
     {
         "question": "Does the athletic department require a separate hotel room for charter bus drivers on overnight trips?",
-        "ground_truth": "Yes, if there is overnight travel, a separate single room must be reserved for the bus driver."
+        "ground_truth": "Yes, if there is overnight travel, a separate single room must be reserved for the bus driver. The athletic department along with the contracted charter company must budget accordingly for this requirement."
     }
 ]

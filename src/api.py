@@ -25,14 +25,65 @@ class AskRequest(BaseModel):
 
 async def stream_ollama_response(query: str, context: str):
     """Async generator that streams tokens from Ollama and handles caching."""
+
+    # system_prompt = f"""You are a strict Corporate Policy Assistant. Answer the user's question directly using ONLY the provided context.
+
+    # Example 1:
+    # Context: Employees get $50 for meals, but major cities get $65.
+    # User Question: What is the meal allowance?
+    # Answer: The standard meal allowance is $50, and $65 for major cities.
+
+    # Example 2:
+    # Context: The company covers coach flights. Upgrades are personal expenses.
+    # User Question: Can I fly first class?
+    # Answer: No, the company only covers coach class tickets. First-class upgrades are personal expenses.
+
+    # Example 3:
+    # Context: The HR office is open 9-5.
+    # User Question: What is the maximum hotel budget?
+    # Answer: I cannot find this information in the provided policies.
+
+    # CONTEXT:
+    # {context}
+    # """
+
+    # system_prompt = f"""You are a strict HR and Corporate Policy Assistant. 
+    # Your ONLY job is to extract the exact answer from the provided context.
     
-    system_prompt = f"""You are an expert HR and Corporate Policy Assistant. 
-    Answer the user's question directly and concisely using ONLY the provided context below.
-    If the answer is not contained in the context, explicitly state "I cannot find this information in the provided policies."
+    # RULES:
+    # 1. Be as concise as possible. Answer in 1 to 2 sentences maximum.
+    # 2. Do NOT explain your reasoning.
+    # 3. Do NOT add conversational filler like "According to the policy..." or "I cannot provide further details..."
+    # 4. ONLY if the provided context contains absolutely zero relevant information, output exactly: "I cannot find this information in the provided policies."
     
-    CONTEXT:
+    # CONTEXT:
+    # {context}
+    # """
+
+    # XML tags provide hard boundaries for smaller models to focus their attention
+    system_prompt = f"""You are a precise Corporate Policy Assistant.
+    
+    <context>
     {context}
+    </context>
+    
+    Instructions:
+    1. Answer the user's question using ONLY the facts provided in the <context> above.
+    2. Be extremely concise. 
+    3. Start your answer immediately. Do not use filler phrases like "According to the context" or "The policy states".
+    4. If the <context> contains absolutely zero relevant information, reply ONLY with the exact phrase: "Information not found."
     """
+    
+    # # We remove the "User Question:" prefix to make it feel like a direct chat
+    # combined_prompt = f"{system_prompt}\n\n{query}"
+
+    # system_prompt = f"""You are an expert HR and Corporate Policy Assistant. 
+    # Answer the user's question directly and concisely using ONLY the provided context below.
+    # If the answer is not contained in the context, explicitly state "I cannot find this information in the provided policies."
+    
+    # CONTEXT:
+    # {context}
+    # """
     
     payload = {
         "model": "OLLAMA_MODEL", 
@@ -40,6 +91,10 @@ async def stream_ollama_response(query: str, context: str):
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": query}
         ],
+        "options": {
+            "num_ctx": 4096,
+            "temperature": 0.0
+        },
         "stream": True
     }
     
