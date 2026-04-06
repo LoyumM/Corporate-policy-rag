@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.env
+venv/
+env/
+.idea/
+.vscode/
+data/chromadb_store/
+data/cache.db

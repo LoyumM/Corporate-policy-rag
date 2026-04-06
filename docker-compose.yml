@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: policy_rag_api
+    command: uvicorn src.api:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mounts the local data folder so vector db and cache persist
+      - ./data:/app/data
+    environment:
+      # Points to the Ollama instance running on your host machine
+      - OLLAMA_HOST=http://host.docker.internal:11434
+      - OLLAMA_MODEL=phi3.5:latest
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  ui:
+    build: .
+    container_name: policy_rag_ui
+    command: python src/ui.py
+    ports:
+      - "7860:7860"
+    environment:
+      # Points the Gradio frontend to the FastAPI container
+      - API_URL=http://api:8000/api/ask
+    depends_on:
+      - api
