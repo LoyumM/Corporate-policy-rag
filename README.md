@@ -39,8 +39,8 @@ policy_rag/
 │   ├── retrieval.py           # ChromaDB search and SQLite caching logic
 │   ├── api.py                 # FastAPI routes and async Ollama streaming
 │   └── ui.py                  # Gradio chat interface
- ├── docker-compose.yml         # Orchestrates API and UI containers
- ├── Dockerfile                 # Container image definition
+├── docker-compose.yml         # Orchestrates API and UI containers
+├── Dockerfile                 # Container image definition
 ├── ui.png                     # Screenshot of the interface
 ├── requirements.txt           # Python dependencies
 ├── run_evaluation.py          # Execution script for RAGAS eval using GPT 4o mini
