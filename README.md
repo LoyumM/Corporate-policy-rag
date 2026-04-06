@@ -39,6 +39,8 @@ policy_rag/
 │   ├── retrieval.py           # ChromaDB search and SQLite caching logic
 │   ├── api.py                 # FastAPI routes and async Ollama streaming
 │   └── ui.py                  # Gradio chat interface
+ ├── docker-compose.yml         # Orchestrates API and UI containers
+ ├── Dockerfile                 # Container image definition
 ├── ui.png                     # Screenshot of the interface
 ├── requirements.txt           # Python dependencies
 ├── run_evaluation.py          # Execution script for RAGAS eval using GPT 4o mini
@@ -47,9 +49,36 @@ policy_rag/
 ```
 
 ## Installation & Setup
+ 
+ ### Option 1: Docker Compose (Recommended)
+ 
 1. Clone the Repository
 ```Bash
-git clone [https://github.com/LoyumM/Corporate-policy-rag.git](https://github.com/LoyumM/Corporate-policy-rag.git)
+ git clone https://github.com/LoyumM/Corporate-policy-rag.git
+ cd corporate-policy-rag
+ ```
+ 
+ 2. Install and Configure Ollama (Local LLM Engine)
+ Download and install Ollama from this [link](https://ollama.com/download)
+ Open a new terminal and pull the specific generation model:
+ ```Bash
+ ollama pull phi3.5:latest
+ ```
+ 
+ 3. Build and Run the Containers
+ Ensure your Docker Desktop is running, open your terminal (e.g., PowerShell), and execute:
+ ```Bash
+ docker-compose up --build
+ ```
+ The application will automatically build and start. Open `http://localhost:7860` in your browser to access the UI!
+ 
+ ---
+ 
+ ### Option 2: Manual Local Setup
+ 
+ 1. Clone the Repository
+ ```Bash
+ git clone https://github.com/LoyumM/Corporate-policy-rag.git
 cd corporate-policy-rag
 ```
 
