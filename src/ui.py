@@ -1,8 +1,9 @@
 import gradio as gr
 import requests
 import json
+import os
 
-API_URL = "http://localhost:8000/api/ask"
+API_URL = os.getenv("API_URL", "http://localhost:8000/api/ask")
 
 def chat_with_policy_bot(message, history):
     """Sends the user message to the FastAPI backend and yields the streaming response."""
